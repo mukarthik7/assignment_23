@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Reninder</title>
+	</head>
+	<body onload="checkLongest()">
+		<div id="page_container"> 
+			<p class="series">Series: [3,2,3,4,2,2,4]</p>
+			<p class="series">Series: [3,5,4,6,1,2,3,6,10,32]</p>
+			<p class="series">Series: [3,2,1]</p>
+			<p id="result"></p>
+
+		</div>	
+
+		<script>
+		var series1 = [3,2,3,4,2,2,4];
+		var series3 = [3,2,1];
+		var series2 = [3,5,4,6,1,2,3,6,10,32];
+		checkLongest(series1);
+		checkLongest(series2);
+		checkLongest(series3);
+
+		function checkLongest(d)
+		{
+			var longestSeries = [];
+			var longLength    = 0;
+			var series = [];
+			var seriesLength    = 0;
+			var j = 0;
+
+			var data  = d;
+			series[j] = data[0];
+			var first = data[0];
+			var div = document.getElementById('result');
+
+			for(var i=0; i < data.length-1 ; i++)
+			{
+				
+				if( first < data[i+1])
+				{
+					j++;
+					series[j] = data[i+1];
+					seriesLength = series.length;
+				}
+				else 
+				{
+					if( longLength < seriesLength)
+					{
+						longestSeries = series;
+						longLength = seriesLength;
+					}
+					series = [];
+					series[0] = data[i+1];
+					j = 0;
+				}
+				first = data[i+1];
+			}
+			if( longLength == 0)
+			{
+				div.innerHTML = div.innerHTML + "none" + "<br>";
+			}
+			if( longLength < seriesLength)
+			{
+				longestSeries = series;
+				longLength = seriesLength;
+			}
+			div.innerHTML = div.innerHTML + longestSeries + "<br>";
+			
+		}
+		</script>
+	</body>
+</html>
